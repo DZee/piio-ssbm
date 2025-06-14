@@ -246,10 +246,7 @@ Server.prototype.handleMessage = function handleMessage(inData, ws) {
 		case "register": return this.registerOverlay(ws, inData.data); break;
 		case "api":
 			this.event.emit("api", inData.data, (outData) => {
-				console.log(inData);
-				outData.mid = inData.mid;
-				console.log(outData);
-				ws.send(JSON.stringify(outData));
+				this.responseRequest(ws, inData.type);
 			});
 			break;
 	}

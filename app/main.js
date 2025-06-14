@@ -64,13 +64,13 @@ server.on("port-in-use", () => {
 	process.exit(1);
 });
 server.on("api", async (data, cb) => {
-	// console.log(data);
 	if (data.name == "version") {
 		data.version = electron.APP.getVersion();
 		cb(data);
 	}
 	if (data.name == "player") {
-		data.player = await database.get("player");
+		data.players = await database.get("player");
+		server.broadcast({ type: 'api', data: data });
 		cb(data);
 	}
 });
